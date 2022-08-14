@@ -5,5 +5,12 @@ import SvgIcon from '@/components/SvgIcon'// svg component
 Vue.component('svg-icon', SvgIcon)
 
 const req = require.context('./svg', false, /\.svg$/)
+console.log(req.keys());
+console.log(req('./dashboard.svg'));
+
+
+// function fn(val) {
+//   console.log(val);
+// }
 const requireAll = requireContext => requireContext.keys().map(requireContext)
 requireAll(req)
