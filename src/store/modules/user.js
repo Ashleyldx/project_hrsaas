@@ -11,7 +11,7 @@ export default ({ // ????
       state.token = token
       setToken(token)
     },
-    getToken(state) {
+    removeToken(state) {
       state.token = null
       removeToken()
     }
@@ -21,7 +21,8 @@ export default ({ // ????
     // commit setToken
     async login({ commit }, data) {
       const res = await login(data)
-      console.log(res)
+      console.log(res) // token
+      commit('setToken', res)
     }
   }
 })

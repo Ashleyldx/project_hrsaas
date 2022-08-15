@@ -1,7 +1,7 @@
 // 固定用法：持久化的第二种方法，自己封装一个
 import Cookies from 'js-cookie'
 
-const TokenKey = 'hrsass-ihrm-token' // 用原有的数据，修改关键词引用，hrsass-ihrm-token
+const TokenKey = 'hrsass-ihrm-token' // 直接修改为自己需要的key:hrsass-ihrm-token
 
 export function getToken() {
   return Cookies.get(TokenKey) // 获取cookies

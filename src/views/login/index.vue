@@ -96,7 +96,6 @@ export default {
       //     // 提交数据的操作
       //   }
       // })
-
       // 完善 点击 loading的状态
       try {
         await this.$refs.loginForm.validate() // promise
