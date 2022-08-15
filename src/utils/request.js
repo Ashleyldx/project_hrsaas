@@ -1,6 +1,4 @@
 import axios from 'axios'
-
-
 // create an axios instance
 const service = axios.create()
 
@@ -8,6 +6,6 @@ const service = axios.create()
 service.interceptors.request.use()
 
 // response interceptor
-service.interceptors.response.use( )
+service.interceptors.response.use()
 
 export default service // 导出axios实例
