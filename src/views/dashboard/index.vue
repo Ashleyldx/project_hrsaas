@@ -1,6 +1,7 @@
 <template>
   <div class="dashboard-container">
-    <div class="dashboard-text">name: {{ name }}</div>
+    <!-- 常用的取值方法 -->
+    <div class="dashboard-text">name: {{ $store.state.user.token }}</div>
   </div>
 </template>
 

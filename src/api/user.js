@@ -1,11 +1,15 @@
-// import request from '@/utils/request'
+import request from '@/utils/request'
 
+/**
+ * 登录
+ * @param {*} data
+ * @returns
+ */
 export function login(data) {
-  
+  return request({
+    url: '/sys/login',
+    method: 'POST',
+    data
+  })
 }
 
-
-
-export function logout() {
-  
-}

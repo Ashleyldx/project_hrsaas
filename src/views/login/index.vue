@@ -14,7 +14,7 @@
 
       <el-form-item prop="password">
         <!-- 先绑定数组，在数据渲染 -->
-        <!--  -->
+        <!-- 使用的是components的SvgIcon -->
         <span class="svg-container">
           <svg-icon icon-class="password" />
         </span>
@@ -33,7 +33,7 @@
         </span>
       </el-form-item>
 
-      <el-button type="primary" style="width:100%;margin-bottom:30px;">登录</el-button>
+      <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click="login">登录</el-button>
 
       <div class="tips">
         <span style="margin-right:20px;">账号: 13800000002</span>
@@ -61,8 +61,8 @@ export default {
       loginForm: {
         mobile: '13800000002',
         password: '123456'
-
       },
+      loading: false,
       // 表单校验规则，须和数据名称一致
       // 可以验证手机号码抽取出来，放在utils的validate.js文件里面
       loginRules: {
@@ -87,8 +87,32 @@ export default {
       this.$nextTick(() => {
         this.$refs.pwdInput.focus()
       })
-    }
+    },
+    async login() {
+      // 方法一：没有async
+      // this.$refs.loginForm.validate((vali) => {
+      //   console.log(vali)
+      //   if (vali) {
+      //     // 提交数据的操作
+      //   }
+      // })
 
+      // 完善 点击 loading的状态
+      try {
+        await this.$refs.loginForm.validate() // promise
+        this.loading = true
+        // 提交数据的操作
+        await this.$store.dispatch('user/login', this.loginForm)
+        // 如何实现页面跳转
+        this.$router.push('/')
+        // 提交数据的操作
+        // console.log(res)
+      } catch (error) {
+        console.log(error)
+      } finally {
+        this.loading = false
+      }
+    }
   }
 }
 </script>

@@ -36,7 +36,15 @@ module.exports = {
       warnings: false,
       errors: true
     },
-    before: require('./mock/mock-server.js')
+    /* 接口代理proxy,该项目中代理跨域的配置
+    一般来说后端所有接口都加 /api */
+    proxy: {
+      '/api': {
+        target: 'http://42.192.129.12:3001/', // 跨域请求的地址
+        changeOrigin: true // 只有这个值为true的情况下才表示开启跨域
+      }
+    }
+    // before: require('./mock/mock-server.js') // 模拟数据请求
   },
   configureWebpack: {
     // provide the app's title in webpack's name field, so that
