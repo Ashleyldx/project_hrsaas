@@ -8,7 +8,7 @@
       </div>
       <!-- svg-container -->
       <el-form-item prop="mobile">
-        <span class="svg-container el-icon-user-solid" />
+        <span class="svg-container el-icon-user-solid" ></span>
         <el-input v-model="loginForm.mobile" placeholder="请输入手机号" />
       </el-form-item>
 
@@ -33,7 +33,7 @@
         </span>
       </el-form-item>
 
-      <el-button type="primary" style="width:100%; margin-bottom:30px;" :loading="loading" @click="login">登录</el-button>
+      <el-button type="primary" style="width:100%;margin-bottom:30px;" :loading="loading" @click="login">登录</el-button>
 
       <div class="tips">
         <span style="margin-right:20px;">账号: 13800000002</span>
@@ -50,8 +50,6 @@ export default {
   name: 'Login',
   data() {
     /* 手机号校验方法二：引入validate*/
-    /* rule对应规则，value对应值， callback 验证完成后调用的回调函数
-    验证通过直接调用 验证不通过 也是 调用 callback,但是会把错误信息 传递出去 */
     const validatorMobile = (rule, value, callback) => {
       if (validMobile(value)) {
         return callback()

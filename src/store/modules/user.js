@@ -1,28 +1,40 @@
-import { login } from '@/api/user'
+import { login, getUserInfo } from '@/api/user'
 import { setToken, getToken, removeToken } from '@/utils/auth'
 
 export default ({ // ????
   namespaced: true,
   state: {
-    token: getToken()
+    token: getToken(), // 设置token为共享状态 初始化vuex的时候 就先从缓存中读取
+    userInfo: {} // 这里定义一个空对象
   },
   mutations: {
     setToken(state, token) {
-      state.token = token
-      setToken(token)
+      state.token = token // 将数据设置给vuex
+      setToken(token) // 同步给缓存
     },
     removeToken(state) {
       state.token = null
       removeToken()
+    },
+    setUserInfo(state, result) {
+      // 更新一个对象
+      state.userInfo = result // 这样是响应式（写法1）
+      // state.userInfo = { ...result } // 响应式--属于浅拷贝（写法2）
     }
   },
   actions: {
-    // 通过接口获取token
+    // 发送登录请求，获取token 在后续中还会用到的，所以很直接抽取出来
     // commit setToken
     async login({ commit }, data) {
       const res = await login(data)
       console.log(res) // token
       commit('setToken', res)
+    },
+    // 封装一个action
+    async getUserInfo(context) {
+      const result = await getUserInfo(result) // 获取返回值
+      context.commit('setUserInfo', result) // commit 调用mutation的名称,提交到mutation
+      return result // 这里return的原因，这里是给我们后期做权限的时候留下的伏笔
     }
   }
 })

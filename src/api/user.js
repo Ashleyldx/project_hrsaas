@@ -13,3 +13,14 @@ export function login(data) {
   })
 }
 
+/**
+ *
+ * @returns 获取用户资料接口
+ */
+export function getUserInfo() {
+  return request({
+    url: '/sys/profile',
+    method: 'POST'
+  })
+}
+
