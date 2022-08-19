@@ -1,5 +1,5 @@
-import { login, getUserInfo } from '@/api/user'
-import { setToken, getToken, removeToken } from '@/utils/auth'
+import { login, getUserInfo, getUserDetailById } from '@/api/user'
+import { setToken, getToken, removeToken, setTimeStamp } from '@/utils/auth'
 
 export default ({ // ????
   namespaced: true,
@@ -26,15 +26,26 @@ export default ({ // ????
     // 发送登录请求，获取token 在后续中还会用到的，所以很直接抽取出来
     // commit setToken
     async login({ commit }, data) {
-      const res = await login(data)
+      // 调用api接口
+      const res = await login(data) // 拿到token
       console.log(res) // token
-      commit('setToken', res)
+      commit('setToken', res) // 设置token 拿到token说明登录成功
+      setTimeStamp() // 设置当前时间戳
     },
     // 封装一个action
     async getUserInfo(context) {
       const result = await getUserInfo(result) // 获取返回值
-      context.commit('setUserInfo', result) // commit 调用mutation的名称,提交到mutation
+      // 调用接口获取用户详情,baseInfo用户详情数据
+      const baseInfo = await getUserDetailById(result.userId)
+      //  视频day04 6.2 10分10秒 // 拿到staffPhoto的数据
+      context.commit('setUserInfo', { ...result, ...baseInfo }) // commit 调用mutation的名称,提交到mutation
       return result // 这里return的原因，这里是给我们后期做权限的时候留下的伏笔
+    },
+    // 实现登出的效果
+    logout(context) { // 删除token,不仅删除了vue中的，也删除了缓存的
+      context.commit('removeToken')
+      // 删除用户资料
+      context.commit('removeUserInfo')
     }
   }
 })

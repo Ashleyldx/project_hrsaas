@@ -1,7 +1,7 @@
 <template>
   <div class="dashboard-container">
     <!-- 常用的取值方法 -->
-    <div class="dashboard-text">name: {{ $store.state.user.token }}</div>
+    <div class="dashboard-text">name: {{ }}</div>
   </div>
 </template>
 

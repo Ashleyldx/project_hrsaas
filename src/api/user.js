@@ -23,4 +23,14 @@ export function getUserInfo() {
     method: 'POST'
   })
 }
+/**
+ * 保存员工基本信息
+ * @param
+ */
+export function getUserDetailById(id) {
+  return request({
+    url: `/sys/user/${id}`
+
+  })
+}
 

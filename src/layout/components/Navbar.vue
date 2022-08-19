@@ -10,8 +10,8 @@
     <div class="right-menu">
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
-          <img src="@/assets/common/bigUserHeader.png" class="user-avatar">
-          <span class="name">管理员</span>
+          <img v-imageError="defaultImg" :src="staffPhoto" class="user-avatar">
+          <span class="name">{{ name }}</span>
           <i class="el-icon-caret-bottom" style="color:#fff" />
         </div>
         <el-dropdown-menu slot="dropdown" class="user-dropdown">
@@ -23,9 +23,6 @@
           <a target="_blank" href="https://github.com/Ashleyldx/project_hrsaas">
             <el-dropdown-item>项目地址</el-dropdown-item>
           </a>
-          <!-- <a target="_blank" href="https://panjiachen.github.io/vue-element-admin-site/#/">
-            <el-dropdown-item>Docs</el-dropdown-item>
-          </a> -->
           <!-- https://github.com/PanJiaChen/vue-admin-template/ -->
           <el-dropdown-item divided @click.native="logout">
             <span style="display:block;">退出登录</span>
@@ -43,13 +40,18 @@ import Hamburger from '@/components/Hamburger'
 
 export default {
   components: {
-
     Hamburger
+  },
+  data() {
+    return { // 图像为什么出不来
+      defaultImg: require('@/assets/common/head.jpg')
+    }
   },
   computed: {
     ...mapGetters([
       'sidebar',
-      'avatar'
+      'name',
+      'staffPhoto'
     ])
   },
   methods: {
@@ -57,8 +59,8 @@ export default {
       this.$store.dispatch('app/toggleSideBar')
     },
     async logout() {
-      await this.$store.dispatch('user/logout')
-      this.$router.push(`/login?redirect=${this.$route.fullPath}`)
+      await this.$store.dispatch('user/logout') // 同步操作
+      this.$router.push(`/login`) // 直接跳到登录页
     }
   }
 }

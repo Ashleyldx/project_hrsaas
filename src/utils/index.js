@@ -1,8 +1,4 @@
 /**
- * Created by PanJiaChen on 16/11/18.
- */
-
-/**
  * Parse the time to string
  * @param {(Object|string|number)} time
  * @param {string} cFormat
@@ -114,4 +110,26 @@ export function param2Obj(url) {
     }
   })
   return obj
+}
+// 导出一个方法
+/**
+ * 将列表型的数据转换成树形数据=>递归算法=>自身调用自身=>注意：自身调用自身时，
+ * 传递的参数一定不能一样，否则就会死循环
+ * 遍历树形的重点：要先找一个头儿
+ */
+// 没听太明白 ?????
+export function tranListToTreeDate(list, rootValue) { // 遍历list
+  const err = []
+  list.forEach(item => {
+    if (item.pid === rootValue) {
+      // 找到之后就要去找item下面有没有子节点
+      const children = tranListToTreeDate(list, item.id)
+      if (children.length) {
+        // 如果childen的长度大于0 ，说明找到了子节点
+        item.children = children
+      }
+      err.push(item) // 将内容加入到数组中
+    }
+  })
+  return err
 }
