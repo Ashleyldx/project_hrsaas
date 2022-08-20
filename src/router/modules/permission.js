@@ -12,7 +12,8 @@ export default {
     component: () => import('@/views/permission'),
     // 路由的源信息 其实就是一个储存数据的地方，可以放任何内容
     meta: {
-      title: '权限管理' // 这里用title的原因是因为左侧导航读取了这里的title属性
+      title: '权限管理', // 这里用title的原因是因为左侧导航读取了这里的title属性
+      icon: 'lock'
     }
   }]
 }

@@ -32,6 +32,9 @@ service.interceptors.request.use(config => {
       // 跳往登录页
       // Promise 抛出错误
       return Promise.reject(new Error('token超时'))
+      // token 存在
+      // 只有在有token的情况下 才有必要去检查时间戳是否超时
+      //
     }
     // config 里面加上字段 // 没有超时继续发出请求
     config.headers['Authorization'] = `Bearer ${store.getters.token}`
@@ -53,12 +56,16 @@ service.interceptors.response.use((response) => {
   }
 }, (error) => {
   // error 信息里的response对象
+  console.log(error)
+  console.log(error.response)
   if (error.response && error.response.data && error.response.data.code === 10002) {
-    // 当等于10002时表示请求超时
+    // 当等于10002时表示请求超时，token失效不处于登录
     store.dispatch('user/login') // 登录action
     router.push('/login')
   } else {
     Message.error(error.message) || '' // 提示默认信息或者默认为空值
+    // 此处判断后端接口，报错是否是token的问题，报401的错，为什么我没报？
+    // 如果是token的问题 直接退出重新登陆 code10002处于失效状态
   }
   return Promise.reject(error)
 })

@@ -11,7 +11,15 @@ export const imageError = {
       // 当图片出现异常的时候 会将指令配置的默认图片设置为该图片的内容
       // dom 可以注册error事件
       dom.src = options.value // 这里不能写死-- 为什么？？？
-    }
+    } // 图片加载失败需要记住！！！
   }
 }
 // v-importError 自定义指令  //
+
+export const color = {
+  inserted(dom, options) {
+    dom.style.color = options.value
+  }
+}
+// Vue.directive('color')
+// 注册在main.js里面

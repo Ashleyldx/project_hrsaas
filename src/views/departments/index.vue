@@ -9,10 +9,12 @@
         <el-tree :data="departs" :props="defaultProps" :default-expand-all="true">
           <!-- 传入内容 插槽内容会循环多次 有多少节点 就循环多少次-->
           <!-- 作用域插槽 slot-scoped="obj"接收传递给插槽的数据（el-tree循环节点时，把节点的数据传递给插槽）-->
-          <tree-tools slot-scoped="{data}" :tree-node="data" @delDepts="getDepartments" /><!-- 多个treetools实例 -->
+          <tree-tools slot-scoped="{data}" :tree-node="data" @delDepts="getDepartments" @addDepts="addDepts" /><!-- 多个treetools实例 -->
         <!-- 监听delDepts绑定事件，新添加的才能删除 -->
         </el-tree>
       </el-card>
+      <!-- 弹层组件 -->
+      <addDept :show-dialog="showDialog" />
     </div>
   </div>
 </template>
@@ -21,11 +23,12 @@
 import TreeTools from './components/tree-tools.vue'
 import { getDepartments } from '@/api/departments'
 import { transListToTreeData } from '@/utils' // ???
+import addDept from './components/add-dept.vue'
 export default {
-  components: { TreeTools },
+  components: { TreeTools, addDept },
   data() {
     return { // 定义一个departs
-      company: { name: '江苏传智播客教育科技股份有限公司', manager: '负责人' }, // 就是头部数据结构
+      company: { }, // 就是头部数据结构 name: '江苏传智播客教育科技股份有限公司', manager: '负责人'
       // departs: [
       //   { name: '总裁办', manager: '曹操', children: [{ name: '董事会', manager: '曹丕' }] }, // name节点
       //   { name: '行政部', manager: '孙权' },
@@ -34,7 +37,9 @@ export default {
       defaultProps: {
         // children: 'children', // 从这个属性去找子节点
         label: 'name' // 表示从这个属性显示内容
-      }
+      },
+      showDialog: false, // 弹框展示，默认不显示弹层
+      node: null // 定义一个node属性，记录当前点击的node事件
     }
   },
   // 引入getDepartments接口之后，在钩子函数中中调用一个方法
@@ -49,6 +54,12 @@ export default {
       // 这里定义一个空字符串，它是根，所有的子节点的数据pid都是'''
       this.departs = transListToTreeData(result.depts, '') // 需要将其转换为树形结构
       console.log(result)
+    },
+    // 监听tree-tools 中触发的点击添加子部门的事情
+    // node 是我们当前点击的部门
+    addDepts(node) {
+      this.showDialog = true // 显示弹层
+      this.node = node
     }
   }
 }

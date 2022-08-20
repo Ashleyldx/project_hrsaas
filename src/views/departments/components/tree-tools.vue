@@ -57,7 +57,9 @@ export default {
   methods: { // 点击编辑 删除 新增时触发
     operateDepts(type) {
       if (type === 'add') {
-        // 添加子部门
+        // 添加子部门,在当前点击的部门下添加子部门=>this.treeNode就是当前点击的部门
+        // 触发一个自定义事件 告诉父组件显示弹窗层
+        this.$emit('addDepts', this.treeNode)
       } else if (type === 'edit') {
         // 编辑部门
       } else {

@@ -43,6 +43,7 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: '首页', icon: 'dashboard' }
     }]
+    //  import('@/views/dashboard/index'), 路由懒加载，作用：首页加载优化
   },
 
   // 404 page must be placed at the end !!!
@@ -61,7 +62,7 @@ export const asyncRoutes = [
   socialRouter]
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+  scrollBehavior: () => ({ y: 0 }), // 控制页面滚动条
   routes: [...constantRoutes, ...asyncRoutes] // 静态路由和动态路由的临时合并
 })
 

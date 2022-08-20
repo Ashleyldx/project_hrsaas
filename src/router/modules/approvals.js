@@ -1,4 +1,4 @@
-// 导出员工的路由规则
+// 导出审批的路由规则
 import Layout from '@/layout'
 export default {
   // 路由规则
