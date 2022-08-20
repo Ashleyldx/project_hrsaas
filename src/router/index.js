@@ -13,12 +13,10 @@ import socialRouter from './modules/social'
 
 Vue.use(Router)
 
-/* Layout */ // 为什么要引入layout？？？
 import Layout from '@/layout'
 /**
  * constantRoutes
- * a base page that does not have permission requirements
- * all roles can be accessed
+ * 所有路由组件都可以写这里，然后拆分到modules下面
  */
 export const constantRoutes = [
   {
@@ -62,7 +60,8 @@ export const asyncRoutes = [
   socialRouter]
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }), // 控制页面滚动条
+  scrollBehavior: () => ({ y: 0 }), // 控制页面滚动条，切换动画的路由
+  // 临时合并
   routes: [...constantRoutes, ...asyncRoutes] // 静态路由和动态路由的临时合并
 })
 
