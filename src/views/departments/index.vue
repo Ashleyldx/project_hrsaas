@@ -22,7 +22,7 @@
 <script>
 import TreeTools from './components/tree-tools.vue'
 import { getDepartments } from '@/api/departments'
-import { transListToTreeData } from '@/utils' // ???
+import { transListToTreeData } from '@/utils/index' // ???
 import addDept from './components/add-dept.vue'
 export default {
   components: { TreeTools, addDept },
