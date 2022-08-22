@@ -6,7 +6,7 @@ export default ({
   state: {
     token: getToken(), // 设置token为共享状态 初始化vuex的时候 就先从缓存中读取
     userInfo: {}, // 这里定义一个空对象
-    hrsaasTime: '' // 对吗？？？
+    hrsaasTime: '' 
   },
   mutations: {
     setToken(state, token) {
@@ -35,7 +35,7 @@ export default ({
     async login({ commit }, data) {
       // 调用api接口
       const res = await login(data) // 拿到token
-      console.log(res) // token
+      console.log(res) // token // 记录
       commit('setToken', res) // 设置token 拿到token说明登录成功
       setTimeStamp() // 设置当前时间戳
       // commit('sethrsaasTime', Date.now()) // 设置当前时间戳

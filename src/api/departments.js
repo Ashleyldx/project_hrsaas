@@ -28,6 +28,6 @@ export function addDepartment(data) {
   return request({
     url: '/company/department', // restful 接口方法同样的地址不同的方法
     method: 'POST',
-    data: data // axios的body参数data
+    data // axios的body参数data
   })
 }

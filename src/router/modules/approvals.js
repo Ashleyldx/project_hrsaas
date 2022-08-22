@@ -3,10 +3,10 @@ import Layout from '@/layout'
 export default {
   // 路由规则
   path: '/approvals', // 路由地址
-  name: 'approvals', // 给模块的一级路由加一个name属性
   component: Layout,
   children: [{
     // 二级路由path什么都不用写的时候 此时它表示二级路由的默认路由
+    name: 'approvals',
     path: '', // 这里不用写，不写的时候表示employees 不但有layout员工主页
     // 动态按需加载，通过箭头函数的形式引入
     component: () => import('@/views/approvals'),

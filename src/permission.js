@@ -27,7 +27,6 @@ router.beforeEach(async(to, from, next) => { // 进行判断
       next('/') // 跳到主页  // 有token用处理吗？不用
     } else {
       // 只有放过的时候才去获取用户资料
-      // 是每次都获取吗 ？
       // 如果当前vuex中有用户资料的id，表示已经有了不需要再获取
       if (!store.getters.userId) {
         // 如果没有id才表示当前用户资料没有获取过

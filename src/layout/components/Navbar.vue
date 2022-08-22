@@ -53,7 +53,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'avatar',
+      // 'avatar',
       'sidebar',
       'name',
       'staffPhoto'

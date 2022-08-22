@@ -9,7 +9,7 @@ const Timeout = 3600 // 定义超时时间
 // 定义超时方法二(慧姐)
 // 封装判断时间是否超时的函数
 // function isCheckTimeOut() {
-//  // 现在的时间 - 获取token的时间 > 定义超时时间 注意单位是秒
+//   现在的时间 - 获取token的时间 > 定义超时时间 注意单位是秒
 // return (Date.now() - store.getters.hrsaasTime) / 1000 > Timeout
 // }
 
@@ -56,15 +56,15 @@ service.interceptors.response.use((response) => {
   }
 }, (error) => {
   // error 信息里的response对象
-  console.log(error)
-  console.log(error.response)
+  // console.log(error)
+  // console.log(error.response)
   if (error.response && error.response.data && error.response.data.code === 10002) {
     // 当等于10002时表示请求超时，token失效不处于登录
     store.dispatch('user/login') // 登录action
     router.push('/login')
   } else {
     Message.error(error.message) || '' // 提示默认信息或者默认为空值
-    // 此处判断后端接口，报错是否是token的问题，报401的错，为什么我没报？
+    // 此处判断后端接口，报错是否是token的问题
     // 如果是token的问题 直接退出重新登陆 code10002处于失效状态
   }
   return Promise.reject(error)

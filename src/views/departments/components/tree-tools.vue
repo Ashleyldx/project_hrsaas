@@ -1,39 +1,32 @@
 <template>
   <!-- 传入内容 插槽内容会循环多次 有多少节点 就循环多少次-->
   <!-- 作用域插槽 slot-scoped="obj"接收传递给插槽的数据（el-tree循环节点时，把节点的数据传递给插槽）-->
-  <el-row type="flex" justify="space-between" align="middle" style="height:40px; width: 100%;">
-    <!-- data每个节点的数据对象 -->
+  <el-row type="flex" justify="space-between" align="middle" style="height: 40px; width: 100%">
     <el-col>
-      <!-- 名称应该变成对应节点中的name -->
-      <span>{{ treeNode.name }}</span>
-      <!-- ？？？？？拿不到数据什么情况？？？ -->
+      <!-- 左侧内容 -->
+      <span>{{ treeNode.name }} </span>
     </el-col>
+    <!-- ======================== -->
     <el-col :span="4">
       <el-row type="flex" justify="end">
         <!-- 两个内容 -->
         <el-col>{{ treeNode.manager }}</el-col>
-        <!-- 没有实现效果怎么回事？？是接口没封装吗？？？ -->
         <el-col>
           <!-- 放置下拉菜单 -->
-          <el-dropdwon @command="operateDepts">
-            <!-- 内容 -->
+          <el-dropdown @command="operateDepts">
             <span>操作
               <i class="el-icon-arrow-down" />
             </span>
-            <!-- 具名插槽 -->
             <el-dropdown-menu slot="dropdown">
               <!-- 下拉选项 -->
-              <!-- 读取ele 文档，在每个下面写command -->
               <el-dropdown-item command="add">添加子部门</el-dropdown-item>
               <el-dropdown-item v-if="!isRoot" command="edit">编辑部门</el-dropdown-item>
               <el-dropdown-item v-if="!isRoot" command="del">删除部门</el-dropdown-item>
-              <!-- v-if="!isRoot"只有不是根节点的时候，才去显示删除和编辑 -->
             </el-dropdown-menu>
-          </el-dropdwon>
+          </el-dropdown>
         </el-col>
       </el-row>
       <!-- 右侧内容 -->
-      <!-- 封装未完成，上课认真听 -->
     </el-col>
   </el-row>
 </template>
@@ -44,7 +37,7 @@ import { delDepartments } from '@/api/departments'
 export default {
   props: {
     // props可以用数组来接收数据 也可以用对象来接收
-    // 定义一个传入的属性
+    // 定义一个传入的属性 //组件里的属性
     treeNode: {
       type: Object,
       required: true

@@ -1,7 +1,7 @@
 <template>
   <!-- 表单校验 -->
   <!-- 放置弹层组件 -->
-  <el-dialog title="新增部门" :visible="true">
+  <el-dialog title="新增部门" :visible="showDialog">
     <!-- 表单数据 label-width设置所有标题的宽度  -->
     <el-form :model="formData" :rules="rules" label-width="120px">
       <el-form-item label="部门名称" props="name">
@@ -32,13 +32,13 @@
         <el-input
           v-model="formData.introduce"
           style="width:80%"
-          placeholder="1-50个字符"
+          placeholder="1-300个字符"
           type="textarea"
-          :row="30"
+          :row="3"
         />
       </el-form-item>
     </el-form>
-    <!-- 确定和消息 -->
+    <!-- 确定和取消 -->
     <el-row slot="footer" type="flex" justify="center">
       <el-col :span="6">
         <el-button size="small">取消</el-button>
@@ -51,16 +51,14 @@
 <script>
 // 配置props属性
 // 完成双向绑定v-model
+
 export default {
   name: 'AddDepts',
-  props: {
-    showDialog: {
-      type: Boolean,
-      default: false
-    }
-  },
+  component: { },
+
   data() {
     return {
+      showDialog: false,
       formData: {
       // 定义一个表单数据
         name: '', // 部门名称
