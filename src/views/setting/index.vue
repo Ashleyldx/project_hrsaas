@@ -66,7 +66,7 @@
         </el-row>
       </el-tab-pane>
       <!-- 公司信息 -->
-      <el-tab-pane label="公司信息" />
+      <el-tab-pane label="公司信息" >
       <el-alert
         type="info"
         :closeable="false"
@@ -88,6 +88,7 @@
           <el-input v-model="formData.remarks" type="textarea" :row="3" disabled style="width:400px" />
         </el-form-item>
       </el-form>
+      </el-tab-pane>
     </el-tabs>
 
     <!-- 引入组件 -->

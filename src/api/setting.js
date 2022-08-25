@@ -17,8 +17,7 @@ export function getRoleList(params) {
  */
 export function getCompanyInfo(companyId) {
   return request({
-    url: `/company/${companyId}`,
-    method: 'POST'
+    url: `/company/${companyId}`
   })
 }
 /**

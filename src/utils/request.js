@@ -14,7 +14,7 @@ const Timeout = 3600 // 定义超时时间
 // }
 
 const service = axios.create({ // 变量使用
-  baseURL: process.env.VUE_APP_BASE_API, // 根据env.development变化，此时是开发环境
+  baseURL: '/api', // 根据env.development变化，此时是开发环境
   timeout: 5000 // 设置超时时间
 })
 

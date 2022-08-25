@@ -1,7 +1,8 @@
 <template>
   <div class="dashboard-container">
     <!-- 常用的取值方法 -->
-    <div class="dashboard-text">name: {{ }}</div>
+    <div class="dashboard-text">name: {{ name}}</div>
+   
   </div>
 </template>
 
@@ -10,7 +11,6 @@ import { mapGetters } from 'vuex'
 
 export default {
   name: 'Dashboard',
-
   // directives 局部注册自定义指令
   directives: {
     color: {

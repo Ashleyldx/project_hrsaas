@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 /**
- * 查询企业部门列表
+ * 获取组织架构数据
  * @returns
  */
 export function getDepartments() {
@@ -24,10 +24,28 @@ export function delDepartments(id) {
     // put 修改业务
   })
 }
-export function addDepartment(data) {
+
+
+/**
+ *  新增部门接口
+ *
+ * ****/
+export function addDepartments(data) {
   return request({
-    url: '/company/department', // restful 接口方法同样的地址不同的方法
+    url: '/company/department',// restful 接口方法同样的地址不同的方法
     method: 'POST',
-    data // axios的body参数data
+    data
+  })
+}
+
+/**
+ * 编辑部门
+ *
+ * ***/
+export function updateDepartments(data) {
+  return request({
+    url: `/company/department/${data.id}`,
+    method: 'put',
+    data
   })
 }

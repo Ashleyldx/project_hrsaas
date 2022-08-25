@@ -22,7 +22,6 @@
 </template>
 
 <script>
-// ！！！！！！！！！！！编辑不生效，也没有分页
 import { addRole,updateRole } from '@/api/setting'
 export default {
   name: 'hrRoleDialogs',

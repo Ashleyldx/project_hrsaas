@@ -118,17 +118,17 @@ export function param2Obj(url) {
  * 传递的参数一定不能一样，否则就会死循环
  * 遍历树形的重点：要先找一个头儿
  */
-export function tranListToTreeDate(list, rootValue) { // 遍历list
-  var arr = []
-  list.forEach(item => {
-    if (item.pid === rootValue) {
+export function transListToTreeData(list, rootValue) { // 遍历list
+  const arr = []
+  list.forEach(ele => {
+    if (ele.pid === rootValue) {
       // 找到之后就要去找item下面有没有子节点
-      const children = tranListToTreeDate(list, item.id)
+      const children = transListToTreeData(list, ele.id)
       if (children.length) {
         // 如果childen的长度大于0 ，说明找到了子节点
-        item.children = children
+        ele.children = children
       }
-      arr.push(item) // 将内容加入到数组中
+      arr.push(ele) // 将内容加入到数组中
     }
   })
   return arr

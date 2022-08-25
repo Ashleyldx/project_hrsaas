@@ -30,7 +30,7 @@ export default ({
     }
   },
   actions: {
-    // 发送登录请求，获取token 在后续中还会用到的，所以很直接抽取出来
+    // 发送登录请求，获取token 在后续中还会用到的，所以直接抽取出来
     // commit setToken
     async login({ commit }, data) {
       // 调用api接口
