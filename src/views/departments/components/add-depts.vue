@@ -16,7 +16,6 @@
         label="
           部门编码"
       >
-      <!-- 没写完补充一下 -->
         <el-input
           v-model="formData.code"
           style="width:80%"

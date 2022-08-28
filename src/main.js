@@ -22,8 +22,9 @@ Object.keys(directives).forEach(key => {
 
 Object.keys(filters).forEach(key => {
   // 注册过滤器(自定义)
-  Vue.filter(key, filters[key]) 
+  Vue.filter(key, filters[key])
 })
+
 
 // set ElementUI lang to EN
 // Vue.use(ElementUI, { locale })
