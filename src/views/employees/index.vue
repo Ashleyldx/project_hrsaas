@@ -83,7 +83,12 @@
       <canvas id="canvas"></canvas>
     </el-dialog>
 
-    <AssignRole ref="assignRole" v-model="assignRoleDialog" :user-id="currentUserId"></AssignRole>
+    <AssignRole 
+        ref="assignRole" 
+        v-model="assignRoleDialog" 
+        :user-id="currentUserId" 
+        :info="12" 
+        @test="test11"></AssignRole>
     <!-- v-model="assignRoleDialog" v-bind:value = "assignRoleDialog"  @input -->
   </div>
 </template>
@@ -115,7 +120,8 @@ export default {
       total: 0, // 分页的总数
       ercodeDialog:false, // 让弹窗显隐
       assignRoleDialog: false,
-      currentUserId:''
+      currentUserId: '',
+      test11:''
     }
   },
   mounted() {

@@ -4,6 +4,7 @@
     :visible="value"
     :before-close="handleClose"
   >
+  <test v-bind="$attrs" v-on="$listeners"> </test>
   <!-- {{this.$attrs}} -->
     <el-checkbox-group v-model="roleIds">
       <!-- 复选框使用 -->
@@ -25,8 +26,10 @@
 import { getRoleList } from '@/api/setting'
 import { getUserDetailById } from '@/api/user'
 import { assignRoles } from '@/api/employees'
+import test from './test.vue'
 export default {
   name: 'HrsaasAssignRole',
+  components:{test},
   inheritAttrs: false,
   model: {
     event:'update' // 把v-model默认的input事件改成update
