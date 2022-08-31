@@ -13,6 +13,10 @@ import * as directives from '@/directives'
 import * as filters from '@/filters' // 引入工具类
 import '@/icons' // icon
 import '@/permission' // permission control
+
+import Print from 'vue-print-nb'
+Vue.use(Print);
+
 // console.log(directives);
 Vue.use(ElementUI)
 

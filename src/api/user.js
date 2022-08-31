@@ -34,3 +34,19 @@ export function getUserDetailById(id) {
   })
 }
 
+/** *
+ *  更新用户详情的基础信息
+ * **/
+export function updatePersonal(data) {
+  return request({
+    url: `/employees/${data.userId}/personalInfo`,
+    method: 'put',
+    data
+  })
+}
+
+
+
+
+
+

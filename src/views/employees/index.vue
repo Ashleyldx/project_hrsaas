@@ -9,7 +9,7 @@
        <span slot="before">共计{{total}}条记录</span>
       <template slot="after">
           <!-- <el-button size="small" type="success">excel导入</el-button> -->
-          <el-button size="small" type="warning" @click="$router.push('/import?type=user')">导入</el-button>
+          <el-button size="small" type="warning" @click="$router.push('/import?type = user')">导入</el-button>
           <el-button size="small" type="danger" @click="exportData">excel导出</el-button>
           <el-button size="small" type="primary" @click="add">新增员工</el-button>
       </template>
@@ -21,6 +21,18 @@
           <el-table-column type="index" label="序号" sortable="" />
           <el-table-column label="姓名" sortable="" prop="username" />
           <el-table-column label="工号" sortable="" prop="workNumber" />
+          <el-table-column label="头像" sortable="" prop="workNumber" >
+            <template slot-scope="{ row }">
+             <img 
+             v-imageError="require('@/assets/common/bigUserHeader.png')"
+             :src="row.staffPhoto" 
+             alt="" 
+             style="border-radius: 50%; width: 100px; height: 100px; padding: 10px;"
+              @click="showErCodeDialog(row.staffPhoto)"
+             >
+            <!-- @click= -->
+            </template>
+          </el-table-column>
           <el-table-column label="聘用形式" sortable="" prop="formOfEmployment" :formatter='formatEmployment' />
           <el-table-column label="部门" sortable="" prop="departmentName" />
           <el-table-column label="入职时间" prop="timeOfEntry" sortable="" >
@@ -36,11 +48,11 @@
           </el-table-column>
           <el-table-column label="操作" sortable="" fixed="right" width="280">
             <template slot-scope="{ row }">
-              <el-button type="text" size="small">查看</el-button>
+              <el-button type="text" size="small" @click="$router.push(`/employees/detail/${row.id}`)">查看</el-button>
               <el-button type="text" size="small">转正</el-button>
               <el-button type="text" size="small">调岗</el-button>
               <el-button type="text" size="small">离职</el-button>
-              <el-button type="text" size="small">角色</el-button>
+              <el-button type="text" size="small" @click="asRole(row.id)">角色</el-button>
               <el-button type="text" size="small" @click="delEmployee(row.id)">删除</el-button>
             </template>
           </el-table-column>
@@ -52,7 +64,7 @@
           background
           :current-page.sync="page.page" 
           :page-size.sync="page.size" 
-          :page-sizes.="[5,10,15]" 
+          :page-sizes="[5,10,15]" 
           :total="total" 
           @current-change="getEmployeeList"
           @size-change="getEmployeeList"
@@ -66,6 +78,13 @@
     <!-- .sync ：visible-dialog = "visibleDialog"和@update:visibleDialog="把子组件
     传递过来的值 赋值给 visibleDialog"-->
     <!-- 自定义组件双向绑定 -->
+    <div id="mydiv" style="display:none">123</div>
+    <el-dialog title="头像二维码" :visible.sync="ercodeDialog" custom-class="canvaseq">
+      <canvas id="canvas"></canvas>
+    </el-dialog>
+
+    <AssignRole ref="assignRole" v-model="assignRoleDialog" :user-id="currentUserId"></AssignRole>
+    <!-- v-model="assignRoleDialog" v-bind:value = "assignRoleDialog"  @input -->
   </div>
 </template>
 
@@ -73,11 +92,15 @@
 import { getEmployeeList, delEmployee } from '@/api/employees'
 import EmployeeEnum from '@/api/constant/employees' // 引入员工的枚举对象
 import AddEmployee from './components/add-employee.vue'
+import assigRole from './components/assign-role.vue'
 import { formatDate } from '@/filters'
+import QrCode from 'qrcode'
+import AssignRole from './components/assign-role.vue'
+
 
 export default {
   name:'EmployeeIndex',
-  components:{ AddEmployee },
+  components:{ AddEmployee, assigRole, AssignRole },
   data() {
     return {
       // EmployeeEnum,
@@ -89,7 +112,10 @@ export default {
         
       },
       visibleDialog: false, //默认关闭
-      total: 0 // 分页的总数
+      total: 0, // 分页的总数
+      ercodeDialog:false, // 让弹窗显隐
+      assignRoleDialog: false,
+      currentUserId:''
     }
   },
   mounted() {
@@ -237,11 +263,30 @@ export default {
       // console.log(arr1)
       })
         // Object.keys()  Object.values() Object.entries() ===>es6 新增对象处理方法
-    }
+    },
+    async showErCodeDialog(staffPhoto) {
+      // staffPhoto 地址存在的时候
+      if (!staffPhoto) return this.$message.error('该用户还未设置头像')
+      this.ercodeDialog = true
+      await this.$nextTick()
+      const dom = document.querySelector('#canvas')
+      console.log(dom);
+      QrCode.toCanvas(dom, staffPhoto)
+    },
+    async asRole(id) {
+      this.currentUserId = id
+      await this.$refs.assignRole.getRoleList()
+      this.assignRoleDialog = true
+    },
+  
+    
+
   }
 }
 </script>
 
-<style>
-
+<style lang="scss">
+.canvaseq .el-dialog__body {
+  text-align: center;
+}
 </style>

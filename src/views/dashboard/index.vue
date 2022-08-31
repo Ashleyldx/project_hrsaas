@@ -3,10 +3,12 @@
     <!-- 常用的取值方法 -->
     <div class="dashboard-text">name: {{ name}}</div>
     <UploadExcel :before-upload="beforeUpload" :on-success="success"/>
+      <UploadImg :onSuccess="handleSuccess"/>
+      <!-- :before-upload-check="beforeUploadCheck" -->
     <a
       href="http://localhost:8888/static/img/login-logo.758b34e9.png"
       download="login-logo.758b34e9.png"
-    >点击</a>
+    ></a>
   </div>
 </template>
 
@@ -56,7 +58,23 @@ export default {
       //   return false
       // }
       return true
-    }
+    },
+    beforeUploadCheck(file) {
+      // file.size 单位为b
+      // 1024 ==> 1024*1024B
+      // if (file.size > 1024) {
+      //   this.$message.error('文件大小不可以超过1MB')
+      //   return false
+      // }
+     
+    },
+     success(data){
+        console.log('data',data);
+    },
+    handleSuccess({url}) {
+        console.log(url);
+      }
+    
   }
 }
 </script>

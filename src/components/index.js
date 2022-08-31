@@ -20,3 +20,4 @@ export default (Vue) => {
     Vue.component(ele.default.name, ele.default)
   })
 }
+
