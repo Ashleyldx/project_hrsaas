@@ -6,7 +6,8 @@ const getters = {
   userId: state => state.user.userInfo.userId, // 建立对用户名的快捷访问
   staffPhoto: state => state.user.userInfo.staffPhoto, // 建立对头像的快捷访问
   hrsaasTime: state => state.user.hrsaasTime,
-  companyId: state => state.user.userInfo.companyId // 建立对于公司id的快捷方式
+  companyId: state => state.user.userInfo.companyId, // 建立对于公司id的快捷方式
+  userInfo: state => state.user.userInfo
 }
 export default getters
 

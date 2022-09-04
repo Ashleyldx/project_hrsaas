@@ -30,13 +30,21 @@ router.beforeEach(async(to, from, next) => { // 进行判断
       // 如果当前vuex中有用户资料的id，表示已经有了不需要再获取
       if (!store.getters.userId) {
         // 如果没有id才表示当前用户资料没有获取过
-        await store.dispatch('user/getUserInfo') // 强制等待
+        const { roles: { menus } } = await store.dispatch('user/getUserInfo') // 强制等待
+        store.dispatch('permission/filterRoutes', menus)
+        next(to.path)
         // 如果说后续 需要根据用户资料获取数据的话  store.dispatch('user/getUserInfo') 必须改成同步
-      } next()
+      }
+      // 当前去往页面是不是登录页 
+      if (to.path === '/login') {
+        next('/')
+      } else {
+        next()
+      } 
     }
   } else {
     // 没有token的情况下  // indexOf
-    if (whiteList.indexOf(to.path) > -1) {
+    if (whiteList.includes(to.path)) {
       // 大于-1表示要去的地址在白名单,反之则在登录页
       next()
     } else {

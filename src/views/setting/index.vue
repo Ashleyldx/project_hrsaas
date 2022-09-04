@@ -1,5 +1,4 @@
 <template>
-  <!-- 看看框架是怎么搭的，把帝可得写出来！！！！ -->
   <div class="app-container">
     <el-tabs v-model="activeName">
       <!-- 左边-角色管理 -->
@@ -11,6 +10,7 @@
         <el-table
           v-loading="loading"
           border
+          :dialog-visible.sync="dialogVisible"
           :data="list"
           style="width: 100%"
         >
@@ -38,7 +38,7 @@
           >
           <template slot-scope="scope">
             <!-- 作用域插槽 -->
-             <el-button type="success" size="medium">
+             <el-button type="success" size="medium" @click="assign11(scope.row)">
               分配权限
             </el-button>
             <el-button type="primary" size="medium" @click="edit(scope.row)">
@@ -95,18 +95,20 @@
     <roleDialog ref="roleDialog" :dialog-visible.sync="dialogVisible" @refresh="getRoleList" />
     <!-- 把.sync拆分成dialogVisible属性和update:dialogVisible属性 -->
     <!-- roleDialog :dialog-visible="dialogVisible" @update:dialogVisible="接收子组件传递过来的值，改变dialogVisible"-->
-
+    <managerPermission ref="managerPermission" :dialog-visible.sync="theDialogVisible"></managerPermission>
   </div>
 </template>
 
 <script>
-import { getRoleList, deleteRole,getCompanyInfo } from '@/api/setting'
+import { getRoleList, deleteRole, getCompanyInfo } from '@/api/setting'
 import roleDialog from './components/roleDialog.vue'
+import managerPermission from './components/manager-permission.vue'
 import { mapGetters } from 'vuex' // 引入companyId,从辅助函数中引入参数放到计算属性上
+
 export default {
   
   name: 'SettingIndex',
-  components: { roleDialog },
+  components: { roleDialog, managerPermission },
   data() {
     return {
       activeName: 'second',
@@ -118,8 +120,8 @@ export default {
       total: 0, // 记录总数
       loading: false,
       formData: {}, // 承载公司信息
-      dialogVisible:true
-
+      dialogVisible: false,
+      theDialogVisible: false
     }
   },
   computed: {
@@ -189,12 +191,17 @@ export default {
       // 删除接口
     } catch (e) {
       console.log(e);
-    }
+    } 
     },   
     // 封装一个方法
     async getCompanyInfo() { // formData专门承载公司信息
       this.formData = await getCompanyInfo(this.companyId)
     },
+    async assign11(row) {
+      await this.$refs.managerPermission.getPermissionList(row.id)
+      this.theDialogVisible = true
+      
+    }
   },
   
 }

@@ -1,5 +1,6 @@
 import { login, getUserInfo, getUserDetailById } from '@/api/user'
 import { setToken, getToken, removeToken, setTimeStamp } from '@/utils/auth'
+import { resetRouter } from '@/router'
 
 export default ({
   namespaced: true,
@@ -48,6 +49,7 @@ export default ({
       // 调用接口获取用户详情,baseInfo用户详情数据
       const baseInfo = await getUserDetailById(res.userId)
       //  视频day04 6.2 10分10秒 // 拿到staffPhoto的数据
+      // const baseResult={...res,...baseInfo}
       context.commit('setUserInfo', { ...res, ...baseInfo })
       // commit 调用mutation的名称,提交到mutation */
       return res // 这里return的原因，这里是给我们后期做权限的时候留下的伏笔,要意识到数据传递过程带来的问题
@@ -57,6 +59,9 @@ export default ({
       commit('removeToken')
       // 删除用户资料
       commit('removeUserInfo')
+      resetRouter()
+      // 在模块内部 
+      commit('permission/setRoutes', [],{root: true})
     }
   }
 })

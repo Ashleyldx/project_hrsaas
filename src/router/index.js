@@ -1,22 +1,25 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-
-// 引入多个模块规则
 import approvalsRouter from './modules/approvals'
-import attendanceRouter from './modules/attendance'
 import departmentsRouter from './modules/departments'
 import employeesRouter from './modules/employees'
 import permissionRouter from './modules/permission'
+import attendancesRouter from './modules/attendances'
 import salarysRouter from './modules/salarys'
 import settingRouter from './modules/setting'
 import socialRouter from './modules/social'
 
+export const asyncRoutes = [approvalsRouter, departmentsRouter, employeesRouter, permissionRouter, attendancesRouter, salarysRouter, settingRouter, socialRouter]
+
 Vue.use(Router)
 
+/* Layout */
 import Layout from '@/layout'
+
 /**
  * constantRoutes
- * 所有路由组件都可以写这里，然后拆分到modules下面
+ * a base page that does not have permission requirements
+ * all roles can be accessed
  */
 export const constantRoutes = [
   {
@@ -27,12 +30,14 @@ export const constantRoutes = [
   {
     path: '/import',
     component: Layout,
-    hidden: true, // 隐藏在左侧菜单中
-    children: [{
-      path: '', // 二级路由path什么都不写 表示二级默认路由
-      name:'import',
-      component: () => import('@/views/import')
-    }]
+    hidden: true,
+    children: [
+      {
+        path: '',
+        name: 'import',
+        component: () => import('@/views/import')
+      }
+    ]
   },
 
   {
@@ -40,10 +45,10 @@ export const constantRoutes = [
     component: () => import('@/views/404'),
     hidden: true
   },
-
   {
     path: '/',
     component: Layout,
+    // name: 'Dashboard',
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
@@ -51,28 +56,21 @@ export const constantRoutes = [
       component: () => import('@/views/dashboard/index'),
       meta: { title: '首页', icon: 'dashboard' }
     }]
-    //  import('@/views/dashboard/index'), 路由懒加载，作用：首页加载优化
-  },
-
+  }
+  // ...asyncRouter,
   // 404 page must be placed at the end !!!
-  { path: '*', redirect: '/404', hidden: true }
+  // { path: '*', redirect: '/404', hidden: true }
 ]
-// 定义一个动态路由变量
-// 这里导出的变量，后边做权限的时候会用到
-export const asyncRoutes = [
-  approvalsRouter,
-  attendanceRouter,
-  departmentsRouter,
-  employeesRouter,
-  permissionRouter,
-  salarysRouter,
-  settingRouter,
-  socialRouter]
+// 思考问题
+// 为什么 icon 可以配置图片
+// 为什么 404 login 没有展示在侧边栏
+// 静态路由 动态路由 现在这样直接混在一起合适吗
+
 const createRouter = () => new Router({
   // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }), // 控制页面滚动条，切换动画的路由
+  scrollBehavior: () => ({ y: 0 }),
   // 临时合并
-  routes: [...constantRoutes, ...asyncRoutes] // 静态路由和动态路由的临时合并
+  routes: [...constantRoutes]
 })
 
 const router = createRouter()

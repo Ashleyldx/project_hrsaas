@@ -36,6 +36,14 @@ export default {
         return false
       },
       
+    },
+    showIcon: {
+      type: Boolean,
+      default:true
+    },
+    showBefore: {
+      type: Boolean,
+      default:true
     }
   }
 

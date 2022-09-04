@@ -32,7 +32,7 @@ export default {
   components:{test},
   inheritAttrs: false,
   model: {
-    event:'update' // 把v-model默认的input事件改成update
+    event:'update' // 把v-model默认的input事件改成update(***)
   },
   props: {
     value: {

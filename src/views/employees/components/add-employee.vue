@@ -151,10 +151,7 @@ export default {
         this.loadingBtn = false
       }
     }
-   
-  }
- 
-  
+  } 
 }
 </script>
 

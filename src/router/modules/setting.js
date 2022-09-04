@@ -1,15 +1,12 @@
-// 导出员工的路由规则
 import Layout from '@/layout'
 export default {
   path: '/setting',
+  meta: { id: 'settings' },
   component: Layout,
   children: [{
-    name: 'setting',
     path: '',
-    component: () => import('@/views/setting'),
-    meta: {
-      title: '公司设置',
-      icon: 'setting'
-    }
+    name: 'setting',
+    component: () => import('@/views/setting/index'),
+    meta: { title: '公司设置', icon: 'setting' }
   }]
 }

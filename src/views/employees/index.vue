@@ -9,7 +9,7 @@
        <span slot="before">共计{{total}}条记录</span>
       <template slot="after">
           <!-- <el-button size="small" type="success">excel导入</el-button> -->
-          <el-button size="small" type="warning" @click="$router.push('/import?type = user')">导入</el-button>
+          <el-button v-if="checkPermission('EMPLOYEE_EXPOERT_ENTRY')" size="small" type="warning" @click="$router.push('/import?type = user')">导入</el-button>
           <el-button size="small" type="danger" @click="exportData">excel导出</el-button>
           <el-button size="small" type="primary" @click="add">新增员工</el-button>
       </template>
@@ -121,7 +121,7 @@ export default {
       ercodeDialog:false, // 让弹窗显隐
       assignRoleDialog: false,
       currentUserId: '',
-      test11:''
+      test11: '',
     }
   },
   mounted() {

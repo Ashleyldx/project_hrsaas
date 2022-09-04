@@ -17,6 +17,8 @@ import '@/permission' // permission control
 import Print from 'vue-print-nb'
 Vue.use(Print);
 
+import myMixin from '@/mixin/checkPermission'
+Vue.mixin(myMixin)
 // console.log(directives);
 Vue.use(ElementUI)
 
