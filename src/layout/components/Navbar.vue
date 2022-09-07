@@ -8,6 +8,8 @@
     <!-- <breadcrumb class="breadcrumb-container" /> -->
 
     <div class="right-menu">
+      <Lang style="margin-right:8px" />
+      <screen-full class="right-menu-item" />
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img
@@ -47,7 +49,7 @@ export default {
     Hamburger
   },
   data() {
-    return { // 图像为什么出不来
+    return { 
       defaultImg: require('@/assets/common/head.jpg')
     }
   },
@@ -114,6 +116,10 @@ export default {
     .breadcrumb-container {
       float: left;
     }
+
+.right-menu-item {
+   vertical-align: middle;
+} 
 
   .right-menu {
     float: right;

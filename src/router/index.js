@@ -52,7 +52,7 @@ export const constantRoutes = [
     redirect: '/dashboard',
     children: [{
       path: 'dashboard',
-      name: 'Dashboard',
+      name: 'dashboard',
       component: () => import('@/views/dashboard/index'),
       meta: { title: '首页', icon: 'dashboard' }
     }]
@@ -66,9 +66,18 @@ export const constantRoutes = [
 // 为什么 404 login 没有展示在侧边栏
 // 静态路由 动态路由 现在这样直接混在一起合适吗
 
-const createRouter = () => new Router({
-  // mode: 'history', // require service support
-  scrollBehavior: () => ({ y: 0 }),
+const createRouter = () => new Router({ // 跳转到主页
+  mode: 'history', // require service support // 将hash转为history
+  scrollBehavior: (to, from, savePosition) =>{
+    // to 目标
+    console.log(to)
+  // from 源头
+  if(to.path === '/dashboard'){
+    return { y: 100 }
+  }
+  return { y: 0}
+ },
+  base:'/hr/',
   // 临时合并
   routes: [...constantRoutes]
 })

@@ -145,7 +145,7 @@ export default {
         name: [ // 校验未完成
           { required: true, massage: '部门名称不能为空', trigger: 'blur' },
           { min: 1, max: 50, message: '部门名称长度为1-50个字符', trigger: 'blur' },
-          {validator : checkNameRepeat, trigger:'blur'}],
+          { validator : checkNameRepeat, trigger:'blur'}],
         
         code: [
           { required: true, massage: '部门编码不能为空', trigger: 'blur' },
